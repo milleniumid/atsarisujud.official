@@ -1,10 +1,11 @@
 {
-    "name": "keenthemes/metronic-laravel",
+    "name": "millenium/atsari-sujud",
     "type": "project",
-    "description": "The Metronic in the Laravel Framework.",
+    "description": "Atsari Sujud Official.",
     "keywords": [
         "framework",
-        "laravel"
+        "laravel",
+        "atsari.sujud"
     ],
     "license": "MIT",
     "require": {
