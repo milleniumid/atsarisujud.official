@@ -18,34 +18,34 @@ var KTSignupGeneral = function () {
                     'first_name': {
                         validators: {
                             notEmpty: {
-                                message: 'First Name is required'
+                                message: 'Nama depan tidak boleh kosong!'
                             }
                         }
                     },
                     'last_name': {
                         validators: {
                             notEmpty: {
-                                message: 'Last Name is required'
+                                message: 'Nama belakang tidak boleh kosong!'
                             }
                         }
                     },
                     'email': {
                         validators: {
                             notEmpty: {
-                                message: 'Email address is required'
+                                message: 'Email tidak boleh kosong!'
                             },
                             emailAddress: {
-                                message: 'The value is not a valid email address'
+                                message: 'Email tidak valid!'
                             }
                         }
                     },
                     'password': {
                         validators: {
                             notEmpty: {
-                                message: 'The password is required'
+                                message: 'Kata sandi tidak boleh kosong!'
                             },
                             callback: {
-                                message: 'Please enter valid password',
+                                message: 'Kata sandi tidak valid!',
                                 callback: function (input) {
                                     if (input.value.length > 0) {
                                         return validatePassword();
@@ -54,23 +54,10 @@ var KTSignupGeneral = function () {
                             }
                         }
                     },
-                    'confirm-password': {
-                        validators: {
-                            notEmpty: {
-                                message: 'The password confirmation is required'
-                            },
-                            identical: {
-                                compare: function () {
-                                    return form.querySelector('[name="password"]').value;
-                                },
-                                message: 'The password and its confirm are not the same'
-                            }
-                        }
-                    },
                     'toc': {
                         validators: {
                             notEmpty: {
-                                message: 'You must accept the terms and conditions'
+                                message: 'Kamu harus menyetujui syarat dan ketentuan!'
                             }
                         }
                     }
@@ -109,12 +96,12 @@ var KTSignupGeneral = function () {
                         .then(function (response) {
                             // Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                             Swal.fire({
-                                text: "You have successfully registered! Please check your email for verification.",
+                                text: "Registrasi kamu berhasil!",
                                 icon: "success",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Lanjutkan",
                                 customClass: {
-                                    confirmButton: "btn btn-primary"
+                                    confirmButton: "btn btn-success"
                                 }
                             }).then(function (result) {
                                 if (result.isConfirmed) {
@@ -127,18 +114,20 @@ var KTSignupGeneral = function () {
                         .catch(function (error) {
                             let dataMessage = error.response.data.message;
                             let dataErrors = error.response.data.errors;
+                            let errorMessage = '';
 
                             for (const errorsKey in dataErrors) {
                                 if (!dataErrors.hasOwnProperty(errorsKey)) continue;
-                                dataMessage += "\r\n" + dataErrors[errorsKey];
+                                errorMessage += dataErrors[errorsKey] + "<br/>";
                             }
 
                             if (error.response) {
                                 Swal.fire({
-                                    text: dataMessage,
+                                    html: dataErrors ? errorMessage : 'Ups! ada yang salah nih, laporin kuy! <br/> ' + `"${dataMessage}"`,
+                                    
                                     icon: "error",
                                     buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: "OK! kembali",
                                     customClass: {
                                         confirmButton: "btn btn-primary"
                                     }
@@ -156,10 +145,10 @@ var KTSignupGeneral = function () {
                 } else {
                     // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                     Swal.fire({
-                        text: "Sorry, looks like there are some errors detected, please try again.",
+                        text: "Ups! kayanya ada kesalahan nih, cek dulu kuy!",
                         icon: "error",
                         buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: "Kembali",
                         customClass: {
                             confirmButton: "btn btn-primary"
                         }

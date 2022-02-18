@@ -8,49 +8,34 @@
         <div class="text-center mb-10">
             <!--begin::Title-->
             <h1 class="text-dark mb-3">
-                {{ __('Create an Account') }}
+                {{ __('Register') }}
             </h1>
             <!--end::Title-->
 
             <!--begin::Link-->
             <div class="text-gray-400 fw-bold fs-4">
-                {{ __('Already have an account?') }}
+                {{ __('Sudah punya akun?') }}
 
                 <a href="{{ theme()->getPageUrl('login') }}" class="link-primary fw-bolder">
-                    {{ __('Sign in here') }}
+                    {{ __('Masuk disini') }}
                 </a>
             </div>
             <!--end::Link-->
         </div>
         <!--end::Heading-->
 
-        <!--begin::Action-->
-        <button type="button" class="btn btn-light-primary fw-bolder w-100 mb-10">
-            <img alt="Logo" src="{{ asset('media/svg/brand-logos/google-icon.svg') }}" class="h-20px me-3"/>
-            {{ __('Sign in with Google') }}
-        </button>
-        <!--end::Action-->
-
-        <!--begin::Separator-->
-        <div class="d-flex align-items-center mb-10">
-            <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-            <span class="fw-bold text-gray-400 fs-7 mx-2">{{ __('OR') }}</span>
-            <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-        </div>
-        <!--end::Separator-->
-
         <!--begin::Input group-->
         <div class="row fv-row mb-7">
             <!--begin::Col-->
             <div class="col-xl-6">
-                <label class="form-label fw-bolder text-dark fs-6">{{ __('First Name') }}</label>
+                <label class="form-label fw-bolder text-dark fs-6">{{ __('Nama Depan') }}</label>
                 <input class="form-control form-control-lg form-control-solid" type="text" name="first_name" autocomplete="off" value="{{ old('first_name') }}"/>
             </div>
             <!--end::Col-->
 
             <!--begin::Col-->
             <div class="col-xl-6">
-                <label class="form-label fw-bolder text-dark fs-6">{{ __('Last Name') }}</label>
+                <label class="form-label fw-bolder text-dark fs-6">{{ __('Nama Belakang') }}</label>
                 <input class="form-control form-control-lg form-control-solid" type="text" name="last_name" autocomplete="off" value="{{ old('last_name') }}"/>
             </div>
             <!--end::Col-->
@@ -98,7 +83,7 @@
 
             <!--begin::Hint-->
             <div class="text-muted">
-                {{ __('Use 8 or more characters with a mix of letters, numbers & symbols.') }}
+                {{ __('Gunakan minimal 8 karakter, terdapat huruf dan angka.') }}
             </div>
             <!--end::Hint-->
         </div>
@@ -116,7 +101,7 @@
             <label class="form-check form-check-custom form-check-solid form-check-inline">
                 <input class="form-check-input" type="checkbox" name="toc" value="1"/>
                 <span class="form-check-label fw-bold text-gray-700 fs-6">
-                {{ __('I Agree &') }} <a href="#" class="ms-1 link-primary">{{ __('Terms and conditions') }}</a>.
+                {{ __('Saya setuju dengan') }} <a href="#" class="ms-1 link-primary">{{ __('other.toc') }}</a>.
             </span>
             </label>
         </div>
