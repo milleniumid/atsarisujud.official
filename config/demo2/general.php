@@ -9,9 +9,13 @@ return array(
             ),
         ),
         'css'     => array(
-            'plugins/global/plugins.bundle.css',
-            'plugins/global/plugins-custom.bundle.css',
-            'css/style.bundle.css',
+            'plugins/global/plugins.dark.bundle.css',
+            'plugins/global/plugins-custom.dark.bundle.css',
+            'css/style.dark.bundle.css',
+
+            // 'plugins/global/plugins.bundle.css',
+            // 'plugins/global/plugins-custom.bundle.css',
+            // 'css/style.bundle.css',
         ),
         'js'      => array(
             'plugins/global/plugins.bundle.js',
@@ -26,7 +30,7 @@ return array(
         'main'       => array(
             'type'              => 'default', // Set layout type: default|blank|none
             'primary-color'     => '#009EF7',
-            'dark-mode-enabled' => true, // Enable optioanl dark mode mode
+            'dark-mode-enabled' => false, // Enable optioanl dark mode mode
             'body'              => array(
                 'background-image' => 'patterns/'.(theme()->isDarkMode() ? 'header-bg-dark.png' : 'header-bg.jpg'),
             ),
