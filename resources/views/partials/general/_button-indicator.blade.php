@@ -1,6 +1,6 @@
 @php
     $label = $label ?? __('Submit');
-    $message = $message ?? __('Please wait...');
+    $message = $message ?? __('Please wait');
 @endphp
 
 <!--begin::Indicator-->
