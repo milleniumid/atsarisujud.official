@@ -1,7 +1,9 @@
 <?php
+// anything that starts with " other. " uses a translator
+
 return array(
     '' => array(
-        'title'       => 'Dashboard',
+        'title'       => '',
         'description' => '',
         'view'        => 'index',
         'layout'      => array(
@@ -172,7 +174,7 @@ return array(
 
         'getting-started' => array(
             'overview' => array(
-                'title'       => 'Overview',
+                'title'       => 'Overvieww',
                 'description' => '',
                 'view'        => 'documentation/getting-started/overview',
             ),
