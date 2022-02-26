@@ -30,8 +30,9 @@ class PasswordLinkRequest extends FormRequest
      */
     public function rules()
     {
+        // return rules is required, email
         return [
-            'email' => 'required|email',
+            'email' => ['required', 'email'],
         ];
     }
 
@@ -42,12 +43,12 @@ class PasswordLinkRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function checkValidEMail()
+    public function IsEmailValid()
     {
-        $this->ensureIsNotRateLimited();
-
+        // check if email exists in database
         $isExist = DB::table('users')->where('email', $this->only('email'))->first();
 
+        // if email not exists in database
         if (!$isExist) {
             RateLimiter::hit($this->throttleKey());
 
@@ -56,6 +57,7 @@ class PasswordLinkRequest extends FormRequest
             ]);
         }
 
+        // If email exists in database and clear rate limit
         RateLimiter::clear($this->throttleKey());
     }
 
@@ -71,19 +73,23 @@ class PasswordLinkRequest extends FormRequest
      */
     public function init()
     {
-        $this->checkValidEMail();
+        // Check does request are spammer
+        $this->ensureIsNotRateLimited();
+
+        // Check is email exists in database and set rate limit
+        $this->IsEmailValid();
 
         $status = Password::sendResetLink(
             $this->only('email')
         );
 
-        // return with json response
+        // Return check the token is valid and return the view.
         return $status == Password::RESET_LINK_SENT 
         ? response()->json([
-            'success' => __('auth.reset_email_sent'),
+            'success' => __($status),
         ])
         : response()->json([
-            'error' => __('auth.failed'),
+            'error' => __($status),
         ]);
     }
 
@@ -96,14 +102,17 @@ class PasswordLinkRequest extends FormRequest
      */
     public function ensureIsNotRateLimited()
     {
+        // If the user has reached their maximum number of attempts
         if (!RateLimiter::tooManyAttempts($this->throttleKey(), 2)) {
             return;
         }
 
+        // If the throttler has reached the maximum number of attempts
         event(new Lockout($this));
 
+        // Throw a custom user exception
         $seconds = RateLimiter::availableIn($this->throttleKey());
-
+        
         throw ValidationException::withMessages([
             'email' => trans('auth.throttle', [
                 'seconds' => $seconds,

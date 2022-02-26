@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\DB;
+use Auth;
 
 class NewPasswordController extends Controller
 {
@@ -21,7 +23,25 @@ class NewPasswordController extends Controller
      */
     public function create(Request $request, $token)
     {
-        return view('auth.reset-password', compact('request', 'token'));
+        // Find the user using the password reset token
+        $findToken = DB::table('password_resets')
+            ->where('email', $request->email)
+            ->orWhere('token', $token);
+
+        // Check $findToken is not null
+        if ($findToken->first() == null) {
+            return redirect()
+                ->route('login')
+                ->withErrors([
+                    'message' => __('Token not found'),
+
+                ]);
+        }
+
+        // Return check the token is valid and return the view.
+        return Hash::check($token, $findToken->first()->token)
+            ? view('auth.reset-password', compact('request', 'token'))
+            : redirect()->route('login')->withErrors(['token' => __('Token not match')]);
     }
 
     /**
@@ -35,9 +55,10 @@ class NewPasswordController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate the request
         $request->validate([
             'token'    => 'required',
-            'email'    => 'required|email',
+            'email'    => 'required|email|exists:users,email',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -56,12 +77,25 @@ class NewPasswordController extends Controller
             }
         );
 
+        // If $status success delete token from database
+        // and authenticate user then redirect to home page
+        if ($status == Password::PASSWORD_RESET) {
+
+            // Delete token from database
+            DB::table('password_resets')->where('email', $request->email)->delete();
+
+            // Authenticate user using Auth facade
+            Auth::attempt(['email' => $request->email, 'password' => $request->password], true);
+        }
+
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
         return $status == Password::PASSWORD_RESET
             ? redirect()->route('login')->with('status', __($status))
-            : back()->withInput($request->only('email'))
-                ->withErrors(['email' => __($status)]);
+            : response()->json([
+                'email' => __($status)
+            ], 422)
+            ->withInput($request->only('email'));
     }
 }

@@ -1,5 +1,6 @@
 <x-auth-layout>
 
+    
     <!--begin::Reset Password Form-->
     <form method="POST" action="{{ theme()->getPageUrl('password.update') }}" class="form w-100" novalidate="novalidate" id="kt_new_password_form">
         @csrf

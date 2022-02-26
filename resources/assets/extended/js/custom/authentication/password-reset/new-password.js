@@ -17,10 +17,10 @@ var KTPasswordResetNewPassword = function () {
                     'password': {
                         validators: {
                             notEmpty: {
-                                message: 'The password is required'
+                                message: 'Kata sandi tidak boleh kosong'
                             },
                             callback: {
-                                message: 'Please enter valid password',
+                                message: 'Kata sandi terlalu lemah!',
                                 callback: function (input) {
                                     if (input.value.length > 0) {
                                         return validatePassword();
@@ -32,20 +32,20 @@ var KTPasswordResetNewPassword = function () {
                     'confirm-password': {
                         validators: {
                             notEmpty: {
-                                message: 'The password confirmation is required'
+                                message: 'Konfirmasi kata sandi tidak boleh kosong'
                             },
                             identical: {
                                 compare: function () {
                                     return form.querySelector('[name="password"]').value;
                                 },
-                                message: 'The password and its confirm are not the same'
+                                message: 'Kata sandi tidak sama'
                             }
                         }
                     },
                     'toc': {
                         validators: {
                             notEmpty: {
-                                message: 'You must accept the terms and conditions'
+                                message: 'Anda harus menyetujui syarat dan ketentuan'
                             }
                         }
                     }
@@ -79,52 +79,58 @@ var KTPasswordResetNewPassword = function () {
                     submitButton.disabled = true;
 
                     // Simulate ajax request
-                    axios.post(submitButton.closest('form').getAttribute('action'), new FormData(form))
+                    axios
+                        .post(
+                            submitButton.closest("form").getAttribute("action"),
+                            new FormData(form)
+                        )
                         .then(function (response) {
-                            // Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                             Swal.fire({
-                                text: "You have successfully reset your password!",
+                                text: "Kata sandi berhasil diubah!",
                                 icon: "success",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Ok, siap!",
                                 customClass: {
-                                    confirmButton: "btn btn-primary"
-                                }
-                            }).then(function (result) {
-                                if (result.isConfirmed) {
-                                    window.location.href = '/login';
-                                    form.querySelector('[name="email"]').value = "";
-                                    form.querySelector('[name="password"]').value = "";
-                                    form.querySelector('[name="confirm-password"]').value = "";
-                                    passwordMeter.reset();  // reset password meter
-                                }
+                                    confirmButton: "btn btn-primary",
+                                },
+                                
+                            }).then(function () {
+                                window.location.href = "/";
                             });
+
+                            
                         })
                         .catch(function (error) {
                             let dataMessage = error.response.data.message;
                             let dataErrors = error.response.data.errors;
+                            let errorMessage = "";
 
                             for (const errorsKey in dataErrors) {
-                                if (!dataErrors.hasOwnProperty(errorsKey)) continue;
-                                dataMessage += "\r\n" + dataErrors[errorsKey];
+                                if (!dataErrors.hasOwnProperty(errorsKey))
+                                    continue;
+                                errorMessage += dataErrors[errorsKey] + "<br/>";
                             }
 
                             if (error.response) {
                                 Swal.fire({
-                                    text: dataMessage,
+                                    html: dataErrors
+                                        ? errorMessage
+                                        : "Ups! ada yang salah nih, laporin kuy! <br/> " +
+                                          `"${dataMessage}"`,
+
                                     icon: "error",
                                     buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: "OK! kembali",
                                     customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
+                                        confirmButton: "btn btn-primary",
+                                    },
                                 });
                             }
                         })
                         .then(function () {
                             // always executed
                             // Hide loading indication
-                            submitButton.removeAttribute('data-kt-indicator');
+                            submitButton.removeAttribute("data-kt-indicator");
 
                             // Enable button
                             submitButton.disabled = false;
@@ -132,10 +138,10 @@ var KTPasswordResetNewPassword = function () {
                 } else {
                     // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                     Swal.fire({
-                        text: "Sorry, looks like there are some errors detected, please try again.",
+                        text: "Upsy! ada yang salah nih, coba cek dulu yuk!",
                         icon: "error",
                         buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: "OK! kembali",
                         customClass: {
                             confirmButton: "btn btn-primary"
                         }
