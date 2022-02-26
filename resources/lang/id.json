@@ -41,6 +41,7 @@
     "Done.": "Selesai.",
     "Email": "Surel",
     "Email Password Reset Link": "Tautan Pengaturan Ulang Kata Sandi Surel",
+    "Email Password Reset Link Has Been Sent": "Tautan Pengaturan Ulang Kata Sandi Surel Telah Dikirim",
     "Enable": "Nyalakan",
     "Ensure your account is using a long, random password to stay secure.": "Pastikan akun Anda menggunakan kata sandi yang panjang dan acak agar aman.",
     "For your security, please confirm your password to continue.": "Untuk kemanan Anda, harap konfirmasi kata sandi untuk melanjutkan.",
@@ -77,6 +78,11 @@
     "Name": "Nama",
     "New Password": "Kata Sandi Baru",
     "Not Found": "Tidak ditemukan",
+    "Token is invalid or expired.": "Token tidak sah atau telah kadaluarsa.",
+    "Token not found": "Token tidak ditemukan.",
+    "Token revoked": "Token dibatalkan.",
+    "Token successfully revoked": "Token berhasil dibatalkan.",
+    "Token not match": "Token tidak cocok",
     "of": "dari",
     "Oh no": "Oh Tidak",
     "Once a team is deleted, all of its resources and data will be permanently deleted. Before deleting this team, please download any data or information regarding this team that you wish to retain.": "Setelah tim dihapus, seluruh sumber dan datanya akan dihapus secara permanen. Sebelum menghapus tim ini, harap unduh data atau informasi apapun yang berkaitan dengan tim ini yang ingin disimpan.",
@@ -194,4 +200,5 @@
     "Sending": "Mengirim...",
     "Please wait": "Mohon tunggu...",
     "Send Password Reset Link": "Kirim Tautan Pengaturan Ulang Kata Sandi"
+    
 }
