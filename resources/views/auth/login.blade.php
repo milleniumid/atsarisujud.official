@@ -14,7 +14,7 @@
         <div class="text-center mb-10">
             <!--begin::Title-->
             <h1 class="text-dark mb-3">
-                {{ __('Masuk') }}
+                {{ __(theme()->getOption('pages', 'title')) }}
             </h1>
             <!--end::Title-->
 
@@ -59,7 +59,7 @@
                 <!--begin::Link-->
                 @if (Route::has('password.request'))
                     <a href="{{ theme()->getPageUrl('password.request') }}" class="link-primary fs-6 fw-bolder">
-                        {{ __('other.forgotPassword') }} ?
+                        {{ __('forgotPassword') }} ?
                     </a>
                 @endif
                 <!--end::Link-->

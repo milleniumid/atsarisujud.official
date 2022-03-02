@@ -178,5 +178,20 @@
     "You may accept this invitation by clicking the button below:": "Anda dapat menerima undangan ini dengan mengklik tombol di bawah ini:",
     "You may delete any of your existing tokens if they are no longer needed.": "Anda bisa menghapus token yang ada bila tidak lagi dibutuhkan.",
     "You may not delete your personal team.": "Anda tidak boleh menghapus tim pribadi Anda.",
-    "You may not leave a team that you created.": "Anda tidak dapat meninggalkan tim yang Anda buat."
+    "You may not leave a team that you created.": "Anda tidak dapat meninggalkan tim yang Anda buat.",
+
+    "Home": "Utama",
+    "about": "Tentang",
+    "support": "Dukungan",
+    "signUpGoogle": "Daftar dengan Google",
+    "signInGoogle": "Masuk dengan Google",
+    "forgotPassword": "Lupa kata sandi",
+    "toc": "Ketentuan Layanan",
+    "privacy": "Kebijakan Privasi",
+    "passwordRules": "Gunakan minimal 8 karakter, terdapat huruf dan angka.",
+    "I agree with the": "Saya setuju dengan",
+    "Submit": "Kirim",
+    "Sending": "Mengirim...",
+    "Please wait": "Mohon tunggu...",
+    "Send Password Reset Link": "Kirim Tautan Pengaturan Ulang Kata Sandi"
 }
