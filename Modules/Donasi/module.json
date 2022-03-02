@@ -1,0 +1,13 @@
+{
+    "name": "Donasi",
+    "alias": "donasi",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Donasi\\Providers\\DonasiServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
