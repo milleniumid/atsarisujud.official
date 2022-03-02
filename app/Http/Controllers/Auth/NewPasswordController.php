@@ -33,6 +33,7 @@ class NewPasswordController extends Controller
             return redirect()
                 ->route('login')
                 ->withErrors([
+                    'type'  => 'danger',
                     'message' => __('Token not found'),
 
                 ]);
@@ -41,7 +42,13 @@ class NewPasswordController extends Controller
         // Return check the token is valid and return the view.
         return Hash::check($token, $findToken->first()->token)
             ? view('auth.reset-password', compact('request', 'token'))
-            : redirect()->route('login')->withErrors(['token' => __('Token not match')]);
+            : redirect()
+            ->route('login')
+            ->withErrors([
+                'type'  => 'danger',
+                'message' => __('Token not match'),
+
+            ]);
     }
 
     /**
@@ -92,7 +99,7 @@ class NewPasswordController extends Controller
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
         return $status == Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('status', __($status))
+            ? redirect('/')
             : response()->json([
                 'email' => __($status)
             ], 422)

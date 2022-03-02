@@ -31,5 +31,16 @@ return array(
             ),
         ),
     ),
+    
+    'reset-password' => array(
+        'title'  => 'Reset Password',
+        'layout' => array(
+            'main' => array(
+                'body' => array(
+                    'background-image' => null,
+                ),
+            ),
+        ),
+    ),
 
 );
